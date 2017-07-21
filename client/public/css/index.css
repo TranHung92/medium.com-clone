@@ -1,0 +1,87 @@
+
+
+
+
+/* sixth example */
+.equal-height-container {
+  width: 500px;
+  height: 280px;
+  margin: 0 auto;
+  display: flex;
+  border-radius: 2px!important;
+  border: 1px solid rgba(0,0,0,.1)!important;
+  background-color: #fff!important;
+  height: 260px!important;
+  margin-bottom: 20px!important;
+}
+
+
+
+.first {
+  background-color: #FFF;
+  padding: 0px;
+  flex: 0 0 auto;
+  background-image: url("http://img03.deviantart.net/6615/i/2012/256/7/8/why_so_serious__by_lisong24kobe-d5ek08j.jpg");
+  background-position: 50% 50% !important;
+  background-origin: border-box!important;
+  background-size: cover!important;
+  height: 100%!important;
+  width: 200px!important;
+}
+
+.second {
+  background-color: white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%!important;
+  width: 100%!important;
+  padding: 20px!important;
+  box-sizing: border-box!important;
+  flex-wrap: wrap;
+  overflow: hidden!important;
+  flex: 1 1 auto;
+  justify-content: center!important;
+}
+
+.second-a {
+  background-color: white;
+  flex: 1;
+  position: relative!important;
+  flex: 1 1 auto;
+  display: block;
+  flex-wrap: wrap;
+  overflow: hidden!important;
+
+}
+
+.second-a-1 {
+  flex: 0 0 auto;
+  width: 100%;
+  display: block;
+  text-decoration: none!important;
+  color: black;
+}
+
+.second-a-1:-webkit-any-link {
+  color: black;
+}
+
+.second-a-2 {
+  color: rgba(0,0,0,.44)!important;
+}
+
+.second-b {
+  background-color: white;
+  display: flex!important;
+  flex: 0 0 auto;
+  padding-top: 10px!important;
+}
+
+.avatar {
+  background-color: #F5F5F5;
+  background-image: url("http://img03.deviantart.net/6615/i/2012/256/7/8/why_so_serious__by_lisong24kobe-d5ek08j.jpg");    
+  border: 1px solid #DDDDDD;      
+  border-radius: 50% 50% 50% 50%;      
+  padding: 4px; 
+}
