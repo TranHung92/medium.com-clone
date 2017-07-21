@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
-import { EditorState, Editor, convertToRaw } from 'draft-js';
+import { EditorState, convertToRaw } from 'draft-js';
 import { connect } from 'react-redux';
+import Editor from 'draft-js-plugins-editor';
+import createEmojiPlugin from 'draft-js-emoji-plugin';
+//import 'draft-js-emoji-plugin/lib/plugin.css'
 
 //import '../styles/draft.css'
 import * as StoriesActions from '../actions';
+
+const emojiPlugin = createEmojiPlugin();
+const { EmojiSuggestions, EmojiSelect } = emojiPlugin;
+
+
 
 class Draft extends Component {
   constructor(props) {
@@ -45,12 +53,9 @@ class Draft extends Component {
 
 
   render() {
-    // const contentState = this.state.getCurrentContent();
-    // console.log(convertToRaw(contentState))
     const { handleSubmit } = this.props;
     return (
       <div>
-
           <div>
             <h4>Title</h4>
             <Editor
@@ -63,13 +68,12 @@ class Draft extends Component {
             <Editor
               editorState={this.state.content}
               onChange={this.onChangeContent}
+              plugins={[emojiPlugin]}
             />
+            <EmojiSuggestions />
           </div>            
           <button onClick={this.onClick}>Submit</button>
-
-    
       </div>
-
     );
   }
 }
