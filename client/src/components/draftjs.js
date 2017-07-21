@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { EditorState, convertToRaw } from 'draft-js';
+import { convertToRaw } from 'draft-js';
 import { connect } from 'react-redux';
+import {MegadraftEditor, editorStateFromRaw, editorStateToJSON} from "megadraft";
 import Editor from 'draft-js-plugins-editor';
 
 
+import '../styles/mega.css'
 //import '../styles/draft.css'
 import * as StoriesActions from '../actions';
 
@@ -13,8 +15,8 @@ class Draft extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: EditorState.createEmpty(),
-      content: EditorState.createEmpty()
+      title: editorStateFromRaw(null),
+      content: editorStateFromRaw(null)
     }
     this.onClick = this.onClick.bind(this);
   }
@@ -49,18 +51,22 @@ class Draft extends Component {
 
 
   render() {
+    const contentObj = this.state.content.getCurrentContent();
+    const content = convertToRaw(contentObj)
+    console.log('content', content)
+    //console.log('state', editorStateToJSON(this.state.content))
     return (
-      <div>
-          <div>
+      <div className='megaEditor'>
+          <div >
             <h4>Title</h4>
-            <Editor
+            <MegadraftEditor
               editorState={this.state.title}
               onChange={this.onChangeTitle}
             />
           </div>   
           <div>
             <h4>Content</h4>
-            <Editor
+            <MegadraftEditor
               editorState={this.state.content}
               onChange={this.onChangeContent}
             />
