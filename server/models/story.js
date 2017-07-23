@@ -2,8 +2,8 @@ const mongoose 		= require('mongoose'),
 			Schema 			= mongoose.Schema;
 
 const storySchema = new Schema({
-	title: String,
-	content: String,
+	title: Object,
+	content: Object,
 	author: {
 		id: {
 			type: Schema.Types.ObjectId,

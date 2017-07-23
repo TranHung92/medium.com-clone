@@ -20,7 +20,6 @@ import StoriesNew from './components/stories_new'
 import Draft from './components/draftjs'
 import StoriesRead from './components/stories_read'
 import Header from './components/header'
-import Mega from './components/megadraft'
 
 const history = createHistory()
 const browserHistory = routerMiddleware(history)
@@ -41,7 +40,6 @@ ReactDOM.render(
   				<Route path='/new-story' component={RequireAuth(StoriesNew)} />
           <Route path='/story/:id' component={StoriesRead} />
           <Route path='/draft' component={Draft} />
-          <Route path='/mega' component={Mega} />
           <Route path='/signin' component={Signin} /> 
           <Route path='/signup' component={Signup} /> 
           <Route path='/signout' component={Signout} />
