@@ -5,7 +5,7 @@ import auth from './auth';
 import StoryReducer from './stories'
 
 const rootReducer = combineReducers({
-	posts: StoryReducer,
+	stories: StoryReducer,
 	routerReducer,
 	form,
 	auth

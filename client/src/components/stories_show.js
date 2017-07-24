@@ -48,6 +48,6 @@ class StoriesShow extends Component {
 
 function mapStateToProps(state) {
 	console.log(state)
-	return { stories: state.posts };
+	return { stories: state.stories };
 }
 export default connect(mapStateToProps, {fetchStories})(StoriesShow)

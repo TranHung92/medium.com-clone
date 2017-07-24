@@ -95,7 +95,6 @@ class StoriesRead extends Component {
 	/* eslint-disable*/
 	constructor() {
 		super();
-		console.log('props', this.props)
 		this.state = { editorState : EditorState.createEmpty()}
 	}
 	 /* eslint-enable*/
@@ -118,11 +117,13 @@ class StoriesRead extends Component {
 			return <div>Loading...</div>;
 		}
 
-		const content = convertFromRaw(JSON.parse(story.content))
-		if (content) {
-			console.log('type', (content))		
-		}
-		if (typeof(story) === 'object' && story !== null) {
+		console.log('type', typeof(story.content))
+		
+		if (typeof(story.content) === 'object') {
+			const content = convertFromRaw(JSON.parse(story.content))
+			if (content) {
+				console.log('type', (content))		
+			}
 			console.log('editorState', EditorState.createWithContent(content))
 			console.log('this.state', this.state.editorState)
 			return (
@@ -173,10 +174,10 @@ class StoriesRead extends Component {
 }
 
 
-function mapStateToProps({ posts }, ownProps) {
-	console.log(posts)
+function mapStateToProps({ stories }, ownProps) {
+	console.log(stories)
 
-	return { story: posts[ownProps.match.params.id] }
+	return { story: stories[ownProps.match.params.id] }
 }
 
 export default connect(mapStateToProps, StoriesActions)(StoriesRead)
