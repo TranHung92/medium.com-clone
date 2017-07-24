@@ -1,4 +1,4 @@
-/*.editor {
+.editor {
   box-sizing: border-box;
   border: 1px solid #ddd;
   cursor: text;
@@ -15,4 +15,4 @@
 
 .options {
   margin-bottom: 20px;
-}*/
+}

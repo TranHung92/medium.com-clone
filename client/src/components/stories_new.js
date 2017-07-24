@@ -4,6 +4,7 @@ import Editor, { composeDecorators } from 'draft-js-plugins-editor'
 import { EditorState, convertFromRaw, convertToRaw } from 'draft-js'
 import { fromJS } from 'immutable';
 import { connect } from 'react-redux';
+import request from 'superagent';
 
 import * as StoriesActions from '../actions';
 
@@ -87,6 +88,28 @@ const plugins = [
 /* eslint-enable*/
 
 
+const CLOUDINARY_UPLOAD_PRESET = 'medium-clone';
+const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/mrhubo/upload';
+
+function blobToFile(theBlob, fileName) {
+    //A Blob() is almost a File() - it's just missing the two properties below which we will add
+    theBlob.lastModifiedDate = new Date();
+    theBlob.name = fileName;
+    return theBlob;
+}
+
+function  handleImageUpload(file) {
+  let upload = request.post(CLOUDINARY_UPLOAD_URL)
+                      .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+                      .field('file', file);
+
+  upload.end((err, response) => {
+    if (err) {
+      console.error(err);
+    }
+  });
+}
+
 class StoriesNew extends Component {
   constructor() {
     super()
@@ -109,12 +132,38 @@ class StoriesNew extends Component {
     this.editor.focus()
   }
 
+  onUpload = () => {
+  	console.log('upload')
+  	const contentObj = this.state.content.getCurrentContent()
+  	const img = convertToRaw(contentObj).entityMap[0].data.src
+  	// var reader = new FileReader()
+  	// reader.readAsBinaryString(img)
+  	var xhr = new XMLHttpRequest();
+		xhr.open('GET', img, true);
+		xhr.responseType = 'blob';
+		xhr.onload = function(e) {
+		  if (this.status === 200) {
+		    var myBlob = this.response;
+		    console.log('myBlob', myBlob)
+		    const imgFile = blobToFile(myBlob, 'hubo')
+  			handleImageUpload(imgFile)
+
+		    // myBlob is now the blob that the object URL pointed to.
+		  }
+		};
+		xhr.send();
+  }
+
+
+
+
+
   onSubmit = () => {
     const titleObj = this.state.title.getCurrentContent()
     const contentObj = this.state.content.getCurrentContent()
     const title = JSON.stringify(convertToRaw(titleObj))
     const content = JSON.stringify(convertToRaw(contentObj))
-    console.log('raw', convertToRaw(contentObj))
+    console.log('raw', convertToRaw(contentObj).entityMap[0])
     console.log('json', content)
     console.log('obj', convertFromRaw(JSON.parse(content)))
     const values = {
@@ -152,6 +201,7 @@ class StoriesNew extends Component {
           <Sidebar />
           <EmojiSuggestions />
           <button onClick={this.onSubmit}>Submit</button>
+          <button onClick={this.onUpload}>Upload</button>
         </div>
       </div>
     )

@@ -5,6 +5,8 @@ import request from 'superagent';
 const CLOUDINARY_UPLOAD_PRESET = 'medium-clone';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/mrhubo/upload';
 
+const seedFile = 'blob:http://localhost:3000/b6d04f9b-59d9-44c4-a69e-75f2b878203a'
+
 export default class Draft extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +17,13 @@ export default class Draft extends React.Component {
     };
   }
 
+  onSeed() {
+    console.log('seeding')
+    this.handleImageUpload(seedFile)
+  }
+
   onImageDrop(files) {
+    console.log('files', files)
     this.setState({
       uploadedFile: files[0]
     });
@@ -41,6 +49,8 @@ export default class Draft extends React.Component {
     });
   }
 
+
+
   render() {
     console.log('state', this.state)
     return (
@@ -61,6 +71,7 @@ export default class Draft extends React.Component {
             <img alt='' src={this.state.uploadedFileCloudinaryUrl} />
           </div>}
         </div>
+        <button onClick={this.onSeed.bind(this)}>submit</button>
       </form>
     )
   }
