@@ -110,10 +110,14 @@ function  handleImageUpload(file) {
     }
     if (response.body.secure_url !== '') {
     	console.log('image url', response.body.secure_url)
+    	// return response.body.secure_url;
+    	// const contentObj = this.state.content.getCurrentContent()
+    	// const rawContent = convertToRaw(contentObj)
+    	// rawContent.entityMap[0].data.src = 'hello'
+    	// const contentState = convertFromRaw(rawContent)
+    	// this.setState({ content: EditorState.createWithContent(contentState)})
     }
   });
-
-
 }
 
 class StoriesNew extends Component {
@@ -142,23 +146,52 @@ class StoriesNew extends Component {
   	const contentObj = this.state.content.getCurrentContent()
   	const img = convertToRaw(contentObj).entityMap[0].data.src
 
-  	var xhr = new XMLHttpRequest();
-		xhr.open('GET', img, true);
-		xhr.responseType = 'blob';
-		xhr.onload = function(e) {
-		  if (this.status === 200) {
-		    var myBlob = this.response;
-		    const imgFile = blobToFile(myBlob, 'hubo')
-  			handleImageUpload(imgFile)
-		  }
-		};
-		xhr.send();
+  // 	var xhr = new XMLHttpRequest();
+		// xhr.open('GET', img, true);
+		// xhr.responseType = 'blob';
+		// xhr.onload = function(e) {
+		//   if (this.status === 200) {
+		//     var myBlob = this.response;
+		//     const imgFile = blobToFile(myBlob, 'hubo')
+  // 			handleImageUpload(imgFile)
+		//   }
+		// };
+		// xhr.send();
+
+	axios({
+	  method: 'get',
+	  url: img,
+	  responseType: 'blob'
+	}).then(res => {
+		const myBlob = res.data
+		const imgFile = blobToFile(myBlob, 'hubo')
+		this.handleImageUpload(imgFile)
+	})
+
 
 		// axios.get(img)
 		// 	.then(res => handleImageUpload(blobToFile(res.headers, 'hubo')))
   }
 
+	handleImageUpload = (file) => {
+	  let upload = request.post(CLOUDINARY_UPLOAD_URL)
+	                      .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+	                      .field('file', file);
 
+	  upload.end((err, response) => {
+	    if (err) {
+	      console.error(err);
+	    }
+	    if (response.body.secure_url !== '') {
+	    	console.log('image url', response.body.secure_url)
+	    	const contentObj = this.state.content.getCurrentContent()
+	    	const rawContent = convertToRaw(contentObj)
+	    	rawContent.entityMap[0].data.src = response.body.secure_url
+	    	const contentState = convertFromRaw(rawContent)
+	    	this.setState({ content: EditorState.createWithContent(contentState)})
+	    }
+	  });
+	}
 
 
 
@@ -169,22 +202,16 @@ class StoriesNew extends Component {
     const content = JSON.stringify(convertToRaw(contentObj))
     console.log('editorState', this.state.content.getCurrentContent())
     console.log('raw', convertToRaw(contentObj))
-    const rawContent = convertToRaw(contentObj)
-    rawContent.entityMap[0].data.src = 'hello'
-    console.log('edit raw', rawContent.entityMap[0].data.src)
-    const fromRaw = convertFromRaw(rawContent)
-    // console.log('new content', convertToRaw(this.state.content.getCurrentContent()))
-    console.log('json', content)
-    console.log('obj', convertFromRaw(JSON.parse(content)))
+    
     const values = {
       title,
       content
     }
 
     // console.log('values', values)
-    // this.props.createStory(values, () => {
-    //   this.props.history.push('/')
-    // })
+    this.props.createStory(values, () => {
+      this.props.history.push('/')
+    })
     console.log('values', convertFromRaw(JSON.parse(values.content)))
   }
 

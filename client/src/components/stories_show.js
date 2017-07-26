@@ -10,11 +10,19 @@ class StoriesShow extends Component {
   }
 
   renderStories() {
+
 		return _.map(this.props.stories, story => {
+			const content = JSON.parse(story.content)
+			let divStyle = null;
+			if (content.entityMap[0] && content.entityMap[0].type === 'image') {
+				divStyle = {
+  				backgroundImage: 'url(' + content.entityMap[0].data.src + ')',
+				};
+			}
 	  	return (
 	      <div key={story._id} className='container'>
 	        <div className="equal-height-container">
-	          <Link className="first" to={`/story/${story._id}`}></Link>
+	          <Link className="first" to={`/story/${story._id}`} style={divStyle}></Link>
 	          <div className="second">
 	            <div className="second-a">
 	              <Link to={`/story/${story._id}`} className="second-a-1">
