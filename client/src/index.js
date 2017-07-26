@@ -35,7 +35,8 @@ if (token) {
 ReactDOM.render(
 	<Provider store={store}>
   	<ConnectedRouter history={history}>
-  		<div>
+  		<div className='ui container'>
+        <Header />
   			<Switch>
   				<Route path='/new-story' component={RequireAuth(StoriesNew)} />
           <Route path='/story/:id' component={StoriesRead} />

@@ -29,8 +29,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className='ui container'>
-        <Header />
+      <div>
         <Navbar />
         {this.renderPromo()}
         <StoriesShow />

@@ -19,7 +19,7 @@ class StoriesShow extends Component {
 	            <div className="second-a">
 	              <Link to={`/story/${story._id}`} className="second-a-1">
 	                <div>
-	                  <h4>{story.title}</h4>
+	                  <h4>{JSON.parse(story.title).blocks[0].text}</h4>
 	                </div>
 	              </Link>
 	              <div className="second-a-2">

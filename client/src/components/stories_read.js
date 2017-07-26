@@ -118,33 +118,26 @@ class StoriesRead extends Component {
 		}
 
 		console.log('type', typeof(story.content))
-		
-		if (typeof(story.content) === 'object') {
-			const content = convertFromRaw(JSON.parse(story.content))
-			if (content) {
-				console.log('type', (content))		
-			}
-			console.log('editorState', EditorState.createWithContent(content))
-			console.log('this.state', this.state.editorState)
-			return (
-				<div>
-					<Editor 
-						editorState={EditorState.createWithContent(content)}
-						onChange={this.onChange}
-						plugins={plugins}
-					/>
-				</div>
-			)
+
+		const content = convertFromRaw(JSON.parse(story.content))
+		if (content) {
+			console.log('type', (content))		
 		}
- 
+		console.log('editorState', EditorState.createWithContent(content))
+		console.log('this.state', this.state.editorState)
+		console.log('title', JSON.parse(story.title))
 		return (
-			<div>
-					<Header />
-				
+			<div>				
 				<div className='container'>
-					<Link to='/'>Back to Index</Link>
-					<h3>{story.title}</h3>
-					<p>{story.content}</p>					
+					<h2>{JSON.parse(story.title).blocks[0].text}</h2>
+					<div>
+						<Editor 
+							editorState={EditorState.createWithContent(content)}
+							onChange={this.onChange}
+							readOnly={true}
+							plugins={plugins}
+						/>
+					</div>					
 				</div>
 				<h1>hello</h1>
 				<h1>hello</h1>

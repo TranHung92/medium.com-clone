@@ -5,6 +5,7 @@ import { EditorState, convertFromRaw, convertToRaw } from 'draft-js'
 import { fromJS } from 'immutable';
 import { connect } from 'react-redux';
 import request from 'superagent';
+import axios from 'axios'
 
 import * as StoriesActions from '../actions';
 
@@ -107,7 +108,12 @@ function  handleImageUpload(file) {
     if (err) {
       console.error(err);
     }
+    if (response.body.secure_url !== '') {
+    	console.log('image url', response.body.secure_url)
+    }
   });
+
+
 }
 
 class StoriesNew extends Component {
@@ -133,25 +139,23 @@ class StoriesNew extends Component {
   }
 
   onUpload = () => {
-  	console.log('upload')
   	const contentObj = this.state.content.getCurrentContent()
   	const img = convertToRaw(contentObj).entityMap[0].data.src
-  	// var reader = new FileReader()
-  	// reader.readAsBinaryString(img)
+
   	var xhr = new XMLHttpRequest();
 		xhr.open('GET', img, true);
 		xhr.responseType = 'blob';
 		xhr.onload = function(e) {
 		  if (this.status === 200) {
 		    var myBlob = this.response;
-		    console.log('myBlob', myBlob)
 		    const imgFile = blobToFile(myBlob, 'hubo')
   			handleImageUpload(imgFile)
-
-		    // myBlob is now the blob that the object URL pointed to.
 		  }
 		};
 		xhr.send();
+
+		// axios.get(img)
+		// 	.then(res => handleImageUpload(blobToFile(res.headers, 'hubo')))
   }
 
 
@@ -163,13 +167,20 @@ class StoriesNew extends Component {
     const contentObj = this.state.content.getCurrentContent()
     const title = JSON.stringify(convertToRaw(titleObj))
     const content = JSON.stringify(convertToRaw(contentObj))
-    console.log('raw', convertToRaw(contentObj).entityMap[0])
+    console.log('editorState', this.state.content.getCurrentContent())
+    console.log('raw', convertToRaw(contentObj))
+    const rawContent = convertToRaw(contentObj)
+    rawContent.entityMap[0].data.src = 'hello'
+    console.log('edit raw', rawContent.entityMap[0].data.src)
+    const fromRaw = convertFromRaw(rawContent)
+    // console.log('new content', convertToRaw(this.state.content.getCurrentContent()))
     console.log('json', content)
     console.log('obj', convertFromRaw(JSON.parse(content)))
     const values = {
       title,
       content
     }
+
     // console.log('values', values)
     // this.props.createStory(values, () => {
     //   this.props.history.push('/')
