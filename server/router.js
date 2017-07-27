@@ -15,4 +15,7 @@ module.exports = function(app) {
   app.get('/auth', requireAuth, function(req, res) {
   	res.send({ message: "blah blah blah..." })
   })
+  app.get('*', (req, res) => {
+  	res.sendFile(path.join(__dirname, '../../client/build/index.html'));
+	});
 }

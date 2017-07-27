@@ -5,7 +5,8 @@ const express 		= require('express'),
 			morgan 			= require('morgan'),
 			mongoose 		= require('mongoose'),
 			cors 				= require('cors'),
-			router 			= require('./router')
+			router 			= require('./router'),
+			path 				= require('path');
 
 // if (process.env.NODE_ENV === 'development') {
 // 	mongoose.connect('mongodb://localhost:auth/medium-clone');
@@ -15,6 +16,7 @@ const express 		= require('express'),
 
 mongoose.connect('mongodb://localhost:auth/medium-clone');
 
+app.use(express.static(path.join(__dirname, '../../client/build')));
 
 app.use(morgan('combined'));
 app.use(cors());
