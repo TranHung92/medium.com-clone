@@ -27,8 +27,8 @@
     "lodash": "^4.17.4",
     "megadraft": "^0.4.26",
     "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "react": "15.5.0",
+    "react-dom": "15.5.0",
     "react-dropzone": "^3.13.3",
     "react-headroom": "^2.1.5",
     "react-redux": "^5.0.5",
@@ -93,7 +93,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "proxy": "http://localhost:3001"
   },
   "jest": {
     "collectCoverageFrom": [

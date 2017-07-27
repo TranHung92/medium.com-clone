@@ -99,26 +99,6 @@ function blobToFile(theBlob, fileName) {
     return theBlob;
 }
 
-function  handleImageUpload(file) {
-  let upload = request.post(CLOUDINARY_UPLOAD_URL)
-                      .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
-                      .field('file', file);
-
-  upload.end((err, response) => {
-    if (err) {
-      console.error(err);
-    }
-    if (response.body.secure_url !== '') {
-    	console.log('image url', response.body.secure_url)
-    	// return response.body.secure_url;
-    	// const contentObj = this.state.content.getCurrentContent()
-    	// const rawContent = convertToRaw(contentObj)
-    	// rawContent.entityMap[0].data.src = 'hello'
-    	// const contentState = convertFromRaw(rawContent)
-    	// this.setState({ content: EditorState.createWithContent(contentState)})
-    }
-  });
-}
 
 class StoriesNew extends Component {
   constructor() {
@@ -126,7 +106,6 @@ class StoriesNew extends Component {
     this.state = {
       title: EditorState.createEmpty(),
       content: EditorState.createEmpty(),
-      readOnly: false
     }
   }
 
@@ -145,32 +124,15 @@ class StoriesNew extends Component {
   onUpload = () => {
   	const contentObj = this.state.content.getCurrentContent()
   	const img = convertToRaw(contentObj).entityMap[0].data.src
-
-  // 	var xhr = new XMLHttpRequest();
-		// xhr.open('GET', img, true);
-		// xhr.responseType = 'blob';
-		// xhr.onload = function(e) {
-		//   if (this.status === 200) {
-		//     var myBlob = this.response;
-		//     const imgFile = blobToFile(myBlob, 'hubo')
-  // 			handleImageUpload(imgFile)
-		//   }
-		// };
-		// xhr.send();
-
-	axios({
-	  method: 'get',
-	  url: img,
-	  responseType: 'blob'
-	}).then(res => {
-		const myBlob = res.data
-		const imgFile = blobToFile(myBlob, 'hubo')
-		this.handleImageUpload(imgFile)
-	})
-
-
-		// axios.get(img)
-		// 	.then(res => handleImageUpload(blobToFile(res.headers, 'hubo')))
+  	axios({
+  	  method: 'get',
+  	  url: img,
+  	  responseType: 'blob'
+  	}).then(res => {
+  		const myBlob = res.data
+  		const imgFile = blobToFile(myBlob, 'hubo')
+  		this.handleImageUpload(imgFile)
+  	})
   }
 
 	handleImageUpload = (file) => {
@@ -207,8 +169,7 @@ class StoriesNew extends Component {
       title,
       content
     }
-
-    // console.log('values', values)
+    console.log('values', values)
     this.props.createStory(values, () => {
       this.props.history.push('/')
     })
