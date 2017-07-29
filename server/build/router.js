@@ -7,12 +7,12 @@ const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
 
 module.exports = function (app) {
-  app.get('/', Story.showStories);
-  app.post('/signin', requireSignin, Authentication.signin);
-  app.post('/signup', Authentication.signup);
-  app.post('/new-story', Story.newStory);
-  app.get('/story/:id', Story.readStory);
-  app.get('/auth', requireAuth, function (req, res) {
+  app.get('/api', Story.showStories);
+  app.post('/api/signin', requireSignin, Authentication.signin);
+  app.post('/api/signup', Authentication.signup);
+  app.post('/api/new-story', Story.newStory);
+  app.get('/api/story/:id', Story.readStory);
+  app.get('/api/auth', requireAuth, function (req, res) {
     res.send({ message: "blah blah blah..." });
   });
   app.get('*', (req, res) => {
