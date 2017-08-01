@@ -3,6 +3,10 @@
 
 
 /* sixth example */
+.ui.two.column.centered.grid {
+  margin-top: auto;
+}
+
 .equal-height-container {
   width: 500px;
   height: 280px;
