@@ -10,7 +10,11 @@ exports.newComment = function(req, res, next) {
 				if (err) {
 					return next(err);
 				} else {
-					
+					comment.author.id = req.user._id;
+					comment.author.username = req.user.username
+					comment.save();
+					story.comments.push(comment)
+					story.save()
 				}
 			})
 		}
