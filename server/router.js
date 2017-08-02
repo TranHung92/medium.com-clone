@@ -13,7 +13,8 @@ module.exports = function(app) {
   app.post('/api/signin', requireSignin, Authentication.signin);
   app.post('/api/signup', Authentication.signup);
   app.post('/api/new-story', Story.newStory);
-  app.post('/api/story/:id/new-comment', Comment.newComment)
+  app.post('/api/story/:id/new-comment', Comment.newComment);
+  app.get('/api/story/:id/comments', Comment.fetchComments);
   app.get('/api/story/:id', Story.readStory);
   app.get('/api/auth', requireAuth, function(req, res) {
   	res.send({ message: "blah blah blah..." })

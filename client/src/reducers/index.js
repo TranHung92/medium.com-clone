@@ -2,13 +2,15 @@ import { combineReducers } from 'redux'
 import { reducer as form } from 'redux-form'
 import { routerReducer, routerStateReducer } from 'react-router-redux';
 import auth from './auth';
-import StoryReducer from './stories'
+import stories from './stories';
+import comments from './comments'
 
 const rootReducer = combineReducers({
-	stories: StoryReducer,
+	stories,
 	routerReducer,
 	form,
-	auth
+	auth,
+	comments
 })
 
 export default rootReducer

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Editor, { composeDecorators } from 'draft-js-plugins-editor'
 import { EditorState, convertFromRaw, convertToRaw } from 'draft-js'
+import { connect } from 'react-redux';
 
 import { createComment } from '../actions';
 
@@ -12,15 +13,30 @@ class Comment extends Component {
 		}
 	}
 
+	componentDidMount() {
+		console.log('props', this.props)
+	}
+
 	onChange = (comment) => {
 		this.setState({ comment })
 	}
 
 	onClick = () => {
-		createComment(this.props.storyId, this.state.comment)
+    const commentObj = this.state.comment.getCurrentContent()
+    const commentJson = JSON.stringify(convertToRaw(commentObj))
+    const values = {
+    	comment: commentJson,
+    	author: this.props.author
+    }		
+		createComment(this.props.story._id, values)
+		this.setState({ comment: EditorState.createEmpty() })
 	}
 
 	render() {
+		this.props.story.comments.forEach(function(comment) {
+			console.log('comment', comment)
+		})
+		// console.log('comments', this.props.story.comments)
 		return (
 			<div className="ui comments">
 	      <form className="ui reply form">
@@ -36,9 +52,12 @@ class Comment extends Component {
 	        </div>
 	      </form>				
 			</div>
-
 		)
 	}
 }
 
-export default Comment;
+function mapStateToProps(state) {
+  return { author: state.auth.user };
+}
+
+export default connect(mapStateToProps)(Comment);

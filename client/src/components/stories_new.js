@@ -109,10 +109,6 @@ class StoriesNew extends Component {
     }
   }
 
-  componentDidMount() {
-    console.log('username', this.props.author)
-  }
-
   onChangeTitle = (title) => {
     this.setState({ title })
   }
@@ -213,7 +209,7 @@ class StoriesNew extends Component {
 }
 
 function mapStateToProps(state) {
-  return { author: state.auth.username };
+  return { author: state.auth.user };
 }
 
 export default connect(mapStateToProps, StoriesActions)(StoriesNew);

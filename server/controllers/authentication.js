@@ -8,7 +8,16 @@ function tokenForUser(user) {
 }
 
 exports.signin = function(req, res, next) {
-	res.send({ token: tokenForUser(req.user) });
+	const username = req.body.username;
+	User.findOne({ username: username }, function(err, foundUser) {
+		res.send({ 
+			token: tokenForUser(req.user),
+			user: {
+				username: foundUser.username,
+				_id: foundUser._id				
+			}
+		});
+	})
 }
 
 exports.signup = function(req, res, next) {

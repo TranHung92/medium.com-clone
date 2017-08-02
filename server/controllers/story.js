@@ -3,9 +3,7 @@ const Story = require('../models/story');
 exports.newStory = function(req, res, next) {
 	var title = req.body.title;
 	var content = req.body.content;
-	var author = {
-		username: req.body.author
-	}
+	var author = req.body.author;
 	var newStory = { title: title, content: content, author: author};
 	Story.create(newStory, function(err, newlyCreated) {
 		if (err) {

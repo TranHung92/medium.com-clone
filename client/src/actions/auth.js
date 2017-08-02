@@ -12,9 +12,11 @@ export function signinUser({ username, password }) {
 	return function(dispatch) {
 		axios.post(`${ROOT_URL}/signin`, { username, password })
 			.then(response => {
-				dispatch(authUser(username))
+				dispatch(authUser(response.data.user))
 				localStorage.setItem('token', response.data.token);
-				console.log('signin success')
+				localStorage.setItem('username', response.data.user.username);
+				localStorage.setItem('userId', response.data.user._id);
+				console.log('signin success');
 			})
 			.catch(() => dispatch(authError('Wrong Login Info')))
 	}
@@ -24,11 +26,11 @@ export function signupUser({ username, password }) {
 	return function(dispatch) {
 		axios.post(`${ROOT_URL}/signup`, { username, password })
 			.then(response => {
-				dispatch(authUser(username));
+				dispatch(authUser(response.data.user));
 				localStorage.setItem('token', response.data.token);
-				console.log('signup success', response)
+				console.log('signup success')
 			})
-			.catch(response => dispatch(authError(response.data.error)));
+			.catch(error => dispatch(authError(error.response.data.error)));
 	}
 }
 
@@ -39,10 +41,10 @@ export function authError(error) {
 	}
 }
 
-export function authUser(username) {
+export function authUser(user) {
 	return {
 		type: AUTH_USER,
-		payload: username
+		payload: user
 	}
 }
 

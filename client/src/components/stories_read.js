@@ -113,7 +113,6 @@ class StoriesRead extends Component {
 
 	render() {
 		const { story } = this.props;
-		//console.log(story)
 		if(!story) {
 			return <div>Loading...</div>;
 		}
@@ -123,6 +122,7 @@ class StoriesRead extends Component {
 			<div>				
 				<div className='container'>
 					<h2>{JSON.parse(story.title).blocks[0].text}</h2>
+					<h3>{story.author.username}</h3>
 					<div>
 						<Editor 
 							editorState={EditorState.createWithContent(content)}
@@ -132,7 +132,7 @@ class StoriesRead extends Component {
 						/>
 					</div>					
 				</div>
-				<Comment storyId={story._id} />
+				<Comment story={story} />
 			</div>
 		)
 	}

@@ -4,18 +4,17 @@ import {
 	AUTH_ERROR
 } from '../actions/types'
 
-const initialState = {
-	error: null,
-	authenticated: false,
-	username: null
+const loggedInUser = {
+	username : localStorage.getItem('username'),
+	_id : localStorage.getItem('userId')
 }
 
-export default function(state = initialState, action) {
+export default function(state = {}, action) {
 	switch (action.type) {
 		case AUTH_USER:
-			return { ...state, error: '', authenticated: true, username: action.payload };
+			return { ...state, error: '', authenticated: true, user: action.payload ? action.payload : loggedInUser };
 		case UNAUTH_USER:
-			return { ...state, authenticated: false, username: null };
+			return { ...state, authenticated: false, user: null };
 		case AUTH_ERROR:
 			return { ...state, error: action.payload };
 		default:

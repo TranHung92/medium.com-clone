@@ -5,7 +5,7 @@ const storySchema = new Schema({
 	title: Object,
 	content: Object,
 	author: {
-		id: {
+		_id: {
 			type: Schema.Types.ObjectId,
 			ref: "User"
 		},
