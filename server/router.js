@@ -1,5 +1,6 @@
 const Authentication = require('./controllers/authentication');
 const Story = require('./controllers/story');
+const Comment = require('./controllers/comment');
 const passportService = require('./services/passport');
 const passport = require('passport');
 const path = require('path');
@@ -12,6 +13,7 @@ module.exports = function(app) {
   app.post('/api/signin', requireSignin, Authentication.signin);
   app.post('/api/signup', Authentication.signup);
   app.post('/api/new-story', Story.newStory);
+  app.post('/api/story/:id/new-comment', Comment.newComment)
   app.get('/api/story/:id', Story.readStory);
   app.get('/api/auth', requireAuth, function(req, res) {
   	res.send({ message: "blah blah blah..." })

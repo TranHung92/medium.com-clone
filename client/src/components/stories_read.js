@@ -118,15 +118,7 @@ class StoriesRead extends Component {
 			return <div>Loading...</div>;
 		}
 
-		console.log('type', typeof(story.content))
-
 		const content = convertFromRaw(JSON.parse(story.content))
-		if (content) {
-			console.log('type', (content))		
-		}
-		console.log('editorState', EditorState.createWithContent(content))
-		console.log('this.state', this.state.editorState)
-		console.log('title', JSON.parse(story.title))
 		return (
 			<div>				
 				<div className='container'>
@@ -140,7 +132,7 @@ class StoriesRead extends Component {
 						/>
 					</div>					
 				</div>
-				<Comment />
+				<Comment storyId={story._id} />
 			</div>
 		)
 	}
@@ -148,8 +140,6 @@ class StoriesRead extends Component {
 
 
 function mapStateToProps({ stories }, ownProps) {
-	console.log(stories)
-
 	return { story: stories[ownProps.match.params.id] }
 }
 

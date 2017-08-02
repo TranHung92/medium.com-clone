@@ -109,6 +109,10 @@ class StoriesNew extends Component {
     }
   }
 
+  componentDidMount() {
+    console.log('username', this.props.author)
+  }
+
   onChangeTitle = (title) => {
     this.setState({ title })
   }
@@ -164,10 +168,11 @@ class StoriesNew extends Component {
     const content = JSON.stringify(convertToRaw(contentObj))
     console.log('editorState', this.state.content.getCurrentContent())
     console.log('raw', convertToRaw(contentObj))
-    
+    const author = this.props.author
     const values = {
       title,
-      content
+      content,
+      author
     }
     console.log('values', values)
     this.props.createStory(values, () => {
@@ -207,4 +212,8 @@ class StoriesNew extends Component {
   }
 }
 
-export default connect(null, StoriesActions)(StoriesNew);
+function mapStateToProps(state) {
+  return { author: state.auth.username };
+}
+
+export default connect(mapStateToProps, StoriesActions)(StoriesNew);

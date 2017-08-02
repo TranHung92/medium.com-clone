@@ -10,3 +10,7 @@ export {
 	signoutUser,
 	resetError
 } from './auth'
+
+export {
+	createComment
+} from './comments'

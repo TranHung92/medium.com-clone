@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Editor, { composeDecorators } from 'draft-js-plugins-editor'
 import { EditorState, convertFromRaw, convertToRaw } from 'draft-js'
 
-
+import { createComment } from '../actions';
 
 class Comment extends Component {
 	constructor() {
@@ -16,6 +16,10 @@ class Comment extends Component {
 		this.setState({ comment })
 	}
 
+	onClick = () => {
+		createComment(this.props.storyId, this.state.comment)
+	}
+
 	render() {
 		return (
 			<div className="ui comments">
@@ -27,7 +31,7 @@ class Comment extends Component {
 							placeholder='write a comment'
 	          />
 	        </div>
-	        <div className="ui primary submit labeled icon button">
+	        <div onClick={this.onClick} className="ui primary submit labeled icon button">
 	          <i className="icon edit"></i> Add Reply
 	        </div>
 	      </form>				
