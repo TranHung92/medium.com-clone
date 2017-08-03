@@ -14,7 +14,7 @@ exports.newComment = function(req, res, next) {
 				} else {
 					story.comments.push(comment)
 					story.save()
-					console.log('comment success')
+					res.send(comment)
 				}
 			})
 		}

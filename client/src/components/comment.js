@@ -36,6 +36,7 @@ class Comment extends Component {
     }		
 		this.props.createComment(this.props.story._id, values)
 		this.setState({ comment: EditorState.createEmpty() })
+		this.props.fetchComments(this.props.story._id)
 	}
 
 	renderComments() {
