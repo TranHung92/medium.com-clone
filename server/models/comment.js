@@ -3,6 +3,7 @@ const mongoose 		= require('mongoose'),
 
 const commentSchema = new Schema({
 	content: String,
+	story_id: String,
 	author: {
 		_id: {
 			type: Schema.Types.ObjectId,

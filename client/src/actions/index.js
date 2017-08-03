@@ -12,5 +12,6 @@ export {
 } from './auth'
 
 export {
-	createComment
+	createComment,
+	fetchComments
 } from './comments'

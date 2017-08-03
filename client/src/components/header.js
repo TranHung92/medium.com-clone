@@ -11,7 +11,7 @@ class Header extends Component {
 			return (
 				<div className='right menu'>
 					<Link className='item' to='/new-story'>Write a story</Link>
-					<Link className='item' to='/signout'>Signout</Link>
+					<Link className='item' onClick={this.props.signoutUser} to='/'>Signout</Link>
 				</div>
 			)
 		} else {

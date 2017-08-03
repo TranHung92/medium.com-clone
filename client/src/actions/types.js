@@ -3,6 +3,7 @@ export const READ_STORY = 'READ_STORY'
 export const CREATE_STORY = 'CREATE_STORY'
 export const DELETE_STORY = 'DELETE_STORY'
 export const CREATE_COMMENT = 'CREATE_COMMENT'
+export const FETCH_COMMENTS = 'FETCH_COMMENTS'
 
 export const AUTH_USER = 'AUTH_USER'
 export const UNAUTH_USER = 'UNAUTH_USER'

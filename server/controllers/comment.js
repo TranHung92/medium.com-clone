@@ -26,7 +26,15 @@ exports.fetchComments = function(req, res, next) {
 		if (err) {
 			return next(err);
 		} else {
-			
-		}
+			Comment.find({
+				'_id': { $in: story.comments}	
+			}, function(err, comments) {
+				if (err) {
+					return next(err);
+				} else {
+					res.send(comments)
+				}
+			})
+		}	
 	})
 }

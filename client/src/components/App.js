@@ -10,9 +10,9 @@ import ModalAuth from './modal'
 class App extends Component {
   renderPromo() {
     var messageStyle = {
-      'background-image': 'url("https://images4.alphacoders.com/605/thumb-1920-60578.jpg")',
-      'background-size': 'cover',
-      'background-position': '50% 50%',
+      'backgroundImage': 'url("https://images4.alphacoders.com/605/thumb-1920-60578.jpg")',
+      'backgroundSize': 'cover',
+      'backgroundPosition': '50% 50%',
     }
     if (!this.props.authenticated) {
       return (

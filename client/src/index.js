@@ -43,7 +43,6 @@ ReactDOM.render(
           <Route path='/draft' component={Draft} />
           <Route path='/signin' component={Signin} /> 
           <Route path='/signup' component={Signup} /> 
-          <Route path='/signout' component={Signout} />
 	  			<Route path='/' component={App} />	
   			</Switch>
   		</div>
