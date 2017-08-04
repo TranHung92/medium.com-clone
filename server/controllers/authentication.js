@@ -44,7 +44,13 @@ exports.signup = function(req, res, next) {
 			if (err) {
 				return next(err);
 			}
-			res.json({ token: tokenForUser(user) });
+		});
+		res.send({ 
+			token: tokenForUser(user),
+			user: {
+				username: user.username,
+				_id: user._id				
+			}
 		});
 	});
 }

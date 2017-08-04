@@ -14,8 +14,6 @@ export function signinUser({ username, password }) {
 			.then(response => {
 				dispatch(authUser(response.data.user))
 				localStorage.setItem('token', response.data.token);
-				localStorage.setItem('username', response.data.user.username);
-				localStorage.setItem('userId', response.data.user._id);
 				console.log('signin success');
 			})
 			.catch(() => dispatch(authError('Wrong Login Info')))
@@ -42,6 +40,8 @@ export function authError(error) {
 }
 
 export function authUser(user) {
+	localStorage.setItem('username', user.username);
+	localStorage.setItem('userId', user._id);
 	return {
 		type: AUTH_USER,
 		payload: user
@@ -54,5 +54,7 @@ export function resetError() {
 
 export function signoutUser() {
 	localStorage.removeItem('token');
+	localStorage.removeItem('username');
+	localStorage.removeItem('userId');
 	return { type: UNAUTH_USER }
 }
